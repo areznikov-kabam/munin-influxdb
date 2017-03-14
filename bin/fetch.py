@@ -57,7 +57,7 @@ def pack_values(config, values):
 
     return [{
             "measurement": measurement,
-            "tags": config['tags_hosts'][measurement][host]
+            "tags": config['tags_hosts'][measurement][host],
             "time": fields['time'],
             "fields": {key: value for key, value in fields.iteritems() if key != 'time'}
         } for measurement, fields in data.iteritems()]
