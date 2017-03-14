@@ -35,7 +35,7 @@ def pack_values(config, values):
     data = defaultdict(dict)
 
     for metric in metrics:
-		host  = metric.split("/")[-1].split("-")[0]
+        host  = metric.split("/")[-1].split("-")[0]
         (latest_date, latest_value), (previous_date, previous_value) = metrics[metric].values()
 
         # usually stored as rrd-filename:42 with 42 being a constant column name for RRD files
@@ -46,9 +46,8 @@ def pack_values(config, values):
 
         if name in config['metrics']:
             measurement, field = config['metrics'][name]
-
             #data[measurement]['time'] = int(latest_date)
-			data[measurement]['time'] = time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime(int(latest_date)))
+            data[measurement]['time'] = time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime(int(latest_date)))
             data[measurement][field] = float(latest_value) if latest_value != 'U' else None   # 'U' is Munin value for unknown
         else:
             age = (date - int(latest_date)) // (24*3600)
