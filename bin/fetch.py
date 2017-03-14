@@ -27,7 +27,7 @@ else:
 # Cron job comment is used to uninstall and must not be manually deleted from the crontab
 CRON_COMMENT = 'Update InfluxDB with fresh values from Munin'
 
-def pack_values(config, values):
+def pack_values(config, values, host, domain):
     suffix = ":{0}".format(Defaults.DEFAULT_RRD_INDEX)
     metrics, date = values
     date = int(date)
@@ -100,7 +100,9 @@ def main(config_filename=Defaults.FETCH_CONFIG):
         else:
             print("{0} Parsed: {1}".format(Symbol.OK_GREEN, statefile))
 
-        data = pack_values(config, values)
+        host  = statefile.split("/")[-1].split("-")[0]
+        domain = statefile.split("/")[-1].split("-")[1]
+        data = pack_values(config, values,host, domain)
         if len(data):
             # print(data)
             try:
