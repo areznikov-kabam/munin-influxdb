@@ -54,6 +54,10 @@ def pack_values(config, values):
                 print("{0} Not found measurement {1} (updated {2} days ago)".format(Symbol.WARN_YELLOW, name, age))
             # otherwise very probably a removed plugin, no problem
 
+    for measurement, fields in data.iteritems():
+        config['tags'][measurement]['host'] = host
+        config['tags'][measurement]['domain'] = domain
+
     return [{
             "measurement": measurement,
             "tags": config['tags'][measurement],
